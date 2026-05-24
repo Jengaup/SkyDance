@@ -3,10 +3,11 @@ import { motion } from "motion/react";
 import { useState } from "react";
 
 const contactInfo = [
-  { icon: "📍", label: "Dirección",       value: "Calle Principal 123, Ciudad",  color: "#a855f7" },
-  { icon: "📞", label: "Teléfono",        value: "+1 (555) 000-0000",            color: "#ec4899" },
-  { icon: "✉️",  label: "Email",           value: "hola@skydance.com",            color: "#22d3ee" },
-  { icon: "🕐", label: "Horario oficina", value: "Lun–Sáb: 9:00 AM – 9:00 PM", color: "#a3e635" },
+  { icon: "📍", label: "Isabela",         value: "Localidad Isabela — dirección próximamente", color: "#a855f7" },
+  { icon: "📍", label: "Hatillo",         value: "Localidad Hatillo — dirección próximamente", color: "#ec4899" },
+  { icon: "📞", label: "Teléfono",        value: "+1 (555) 000-0000",                          color: "#22d3ee" },
+  { icon: "✉️",  label: "Email",           value: "hola@skydance.com",                          color: "#a3e635" },
+  { icon: "🕐", label: "Horario oficina", value: "Lun–Sáb: 9:00 AM – 9:00 PM",               color: "#f97316" },
 ];
 
 const inputClass =
