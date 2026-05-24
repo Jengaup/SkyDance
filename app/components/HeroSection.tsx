@@ -119,7 +119,7 @@ export default function HeroSection() {
           {[
             { value: "255", label: "Alumnos activos", color: "text-purple-400" },
             { value: "10+", label: "Años de experiencia", color: "text-pink-400" },
-            { value: "6", label: "Estilos de baile", color: "text-cyan-400" },
+            { value: "7", label: "Estilos de baile", color: "text-cyan-400" },
           ].map((s) => (
             <div key={s.label}>
               <div className={`text-3xl font-black ${s.color}`}>{s.value}</div>
