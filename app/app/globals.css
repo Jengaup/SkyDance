@@ -14,3 +14,26 @@ body {
 html {
   scroll-behavior: smooth;
 }
+
+@keyframes spotlight {
+  0% { opacity: 0; transform: translate(-72%, -62%) scale(0.5); }
+  100% { opacity: 1; transform: translate(-50%, -40%) scale(1); }
+}
+
+@keyframes scroll {
+  to { transform: translate(calc(-50% - 0.5rem)); }
+}
+
+@keyframes wave {
+  0% { d: path("M 0 200 Q 250 100 500 200 Q 750 300 1000 200 Q 1250 100 1500 200 L 1500 350 L 0 350 Z"); }
+  50% { d: path("M 0 200 Q 250 300 500 200 Q 750 100 1000 200 Q 1250 300 1500 200 L 1500 350 L 0 350 Z"); }
+  100% { d: path("M 0 200 Q 250 100 500 200 Q 750 300 1000 200 Q 1250 100 1500 200 L 1500 350 L 0 350 Z"); }
+}
+
+.animate-spotlight {
+  animation: spotlight 2s ease 0.75s 1 forwards;
+}
+
+.animate-scroll {
+  animation: scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite;
+}

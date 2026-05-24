@@ -1,53 +1,60 @@
 "use client";
 import { motion } from "motion/react";
+import { Spotlight } from "@/components/ui/spotlight";
+import { TypewriterEffect } from "@/components/ui/typewriter-effect";
+import { BackgroundBeams } from "@/components/ui/background-beams";
 
 export default function HeroSection() {
-  return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Fondo con gradiente animado */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#0a0a0f] via-[#0f0a1a] to-[#0a1020]" />
-      <div className="absolute inset-0">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl animate-pulse delay-1000" />
-      </div>
+  const words = [
+    { text: "Mueve" },
+    { text: "tu" },
+    { text: "cuerpo,", className: "text-amber-400" },
+    { text: "libera" },
+    { text: "tu" },
+    { text: "alma.", className: "bg-gradient-to-r from-amber-400 to-cyan-400 bg-clip-text text-transparent" },
+  ];
 
-      <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
+  return (
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#0a0a0f]">
+      <Spotlight className="-top-40 left-0 md:left-60 md:-top-20" fill="white" />
+      <BackgroundBeams />
+
+      {/* Glow circles */}
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
+
+      <div className="relative z-10 text-center px-6 max-w-5xl mx-auto">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.6 }}
         >
-          <span className="inline-block text-amber-400 text-sm font-semibold tracking-widest uppercase mb-4 border border-amber-400/30 px-4 py-1 rounded-full">
+          <span className="inline-block text-amber-400 text-sm font-semibold tracking-widest uppercase mb-6 border border-amber-400/30 px-4 py-1 rounded-full">
             Academia de Baile
           </span>
         </motion.div>
 
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-5xl md:text-7xl font-extrabold text-white mb-6 leading-tight"
-        >
-          Mueve tu cuerpo,{" "}
-          <span className="bg-gradient-to-r from-amber-400 to-cyan-400 bg-clip-text text-transparent">
-            libera tu alma
-          </span>
-        </motion.h1>
+        <div className="mb-8">
+          <TypewriterEffect
+            words={words}
+            className="text-4xl md:text-6xl lg:text-7xl"
+          />
+        </div>
 
         <motion.p
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
+          transition={{ duration: 0.8, delay: 0.5 }}
           className="text-white/60 text-lg md:text-xl mb-10 max-w-2xl mx-auto"
         >
-          En Sky Dance te enseñamos a bailar con pasión. Clases para todos los niveles,
-          desde principiantes hasta avanzados.
+          Clases para todos los niveles. Desde principiantes hasta avanzados,
+          encontrarás tu ritmo en Sky Dance.
         </motion.p>
 
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
+          transition={{ duration: 0.8, delay: 0.8 }}
           className="flex flex-col sm:flex-row gap-4 justify-center"
         >
           <a
@@ -65,11 +72,10 @@ export default function HeroSection() {
         </motion.div>
       </div>
 
-      {/* Scroll indicator */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.2 }}
+        transition={{ delay: 1.5 }}
         className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/30 text-xs"
       >
         <span>Scroll</span>
