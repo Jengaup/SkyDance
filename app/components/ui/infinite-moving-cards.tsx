@@ -23,17 +23,13 @@ export function InfiniteMovingCards({
 
   useEffect(() => {
     if (!containerRef.current || !scrollerRef.current) return;
-
-    // Clone items for infinite effect
-    const items = Array.from(scrollerRef.current.children);
-    items.forEach((item) => {
-      const clone = item.cloneNode(true);
-      scrollerRef.current!.appendChild(clone);
+    const children = Array.from(scrollerRef.current.children);
+    children.forEach((item) => {
+      scrollerRef.current!.appendChild(item.cloneNode(true));
     });
-
     containerRef.current.style.setProperty(
       "--animation-duration",
-      speed === "fast" ? "20s" : speed === "normal" ? "40s" : "80s"
+      speed === "fast" ? "20s" : speed === "normal" ? "40s" : "70s"
     );
     containerRef.current.style.setProperty(
       "--animation-direction",
@@ -42,43 +38,52 @@ export function InfiniteMovingCards({
     setStart(true);
   }, [speed, direction]);
 
+  const colors = ["#a855f7", "#ec4899", "#22d3ee", "#a3e635", "#f97316", "#d946ef"];
+
   return (
     <div
       ref={containerRef}
       className={cn(
-        "scroller relative z-20 overflow-hidden [mask-image:linear-gradient(to_right,transparent,white_10%,white_90%,transparent)]",
+        "scroller relative overflow-hidden [mask-image:linear-gradient(to_right,transparent,white_10%,white_90%,transparent)]",
         className
       )}
     >
       <ul
         ref={scrollerRef}
         className={cn(
-          "flex min-w-full shrink-0 gap-4 py-4 w-max flex-nowrap",
+          "flex min-w-full shrink-0 gap-4 py-2 w-max flex-nowrap",
           start && "animate-scroll",
           pauseOnHover && "hover:[animation-play-state:paused]"
         )}
       >
-        {items.map((item, idx) => (
-          <li
-            key={idx}
-            className="w-[280px] md:w-[350px] max-w-full relative rounded-2xl border border-white/10 flex-shrink-0 px-6 py-5 bg-white/5"
-          >
-            <blockquote>
-              <p className="text-white/70 text-sm leading-relaxed mb-4">&ldquo;{item.quote}&rdquo;</p>
-              <footer className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-amber-400 to-cyan-400 flex items-center justify-center text-black font-bold text-sm">
+        {items.map((item, idx) => {
+          const color = colors[idx % colors.length];
+          return (
+            <li
+              key={idx}
+              className="w-[300px] md:w-[380px] max-w-full relative rounded-2xl flex-shrink-0 px-6 py-5 glass"
+              style={{ border: `1px solid ${color}25` }}
+            >
+              <p className="text-white/60 text-sm leading-relaxed mb-5 italic">
+                &ldquo;{item.quote}&rdquo;
+              </p>
+              <div className="flex items-center gap-3">
+                <div
+                  className="w-9 h-9 rounded-full flex items-center justify-center font-black text-sm"
+                  style={{ background: `${color}20`, border: `1px solid ${color}50`, color }}
+                >
                   {item.name[0]}
                 </div>
                 <div>
-                  <div className="text-white text-sm font-semibold">{item.name}</div>
+                  <div className="text-white text-sm font-bold">{item.name}</div>
                   {item.title && (
-                    <div className="text-white/40 text-xs">{item.title}</div>
+                    <div className="text-xs font-semibold" style={{ color }}>{item.title}</div>
                   )}
                 </div>
-              </footer>
-            </blockquote>
-          </li>
-        ))}
+              </div>
+            </li>
+          );
+        })}
       </ul>
     </div>
   );
