@@ -3,7 +3,7 @@ import { motion, useInView } from "motion/react";
 import { useRef } from "react";
 
 const stats = [
-  { value: 500, suffix: "+", label: "Estudiantes formados", color: "#a855f7", glow: "glow-purple" },
+  { value: 255, suffix: "",  label: "Estudiantes formados", color: "#a855f7", glow: "glow-purple" },
   { value: 10,  suffix: "+", label: "Años de experiencia", color: "#ec4899", glow: "glow-pink" },
   { value: 15,  suffix: "+", label: "Instructores certificados", color: "#22d3ee", glow: "glow-cyan" },
   { value: 6,   suffix: "",  label: "Estilos de baile", color: "#a3e635", glow: "glow-lime" },

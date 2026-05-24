@@ -52,7 +52,7 @@ export default function HeroSection() {
         >
           <span className="w-2 h-2 rounded-full bg-purple-400 animate-pulse" />
           <span className="text-purple-300 text-xs font-semibold tracking-[0.3em] uppercase">
-            Academia de Baile Premium
+            Academia de Baile
           </span>
         </motion.div>
 
@@ -117,7 +117,7 @@ export default function HeroSection() {
           className="mt-20 flex flex-wrap justify-center gap-10 text-center"
         >
           {[
-            { value: "500+", label: "Alumnos activos", color: "text-purple-400" },
+            { value: "255", label: "Alumnos activos", color: "text-purple-400" },
             { value: "10+", label: "Años de experiencia", color: "text-pink-400" },
             { value: "6", label: "Estilos de baile", color: "text-cyan-400" },
           ].map((s) => (
