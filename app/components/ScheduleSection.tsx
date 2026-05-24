@@ -2,12 +2,13 @@
 import { motion } from "motion/react";
 
 const schedule = [
-  { clase: "Salsa",          color: "#ec4899", lunes: "7:00 PM", martes: "",        miercoles: "7:00 PM", jueves: "",        viernes: "6:00 PM", sabado: "10:00 AM" },
-  { clase: "Reggaeton",      color: "#f97316", lunes: "6:00 PM", martes: "6:00 PM", miercoles: "",        jueves: "6:00 PM", viernes: "",        sabado: "11:00 AM" },
-  { clase: "Hip Hop",        color: "#a855f7", lunes: "",        martes: "7:00 PM", miercoles: "6:00 PM", jueves: "7:00 PM", viernes: "",        sabado: "12:00 PM" },
-  { clase: "Bachata",        color: "#d946ef", lunes: "8:00 PM", martes: "",        miercoles: "8:00 PM", jueves: "",        viernes: "7:00 PM", sabado: "10:00 AM" },
-  { clase: "Contemporáneo",  color: "#22d3ee", lunes: "",        martes: "5:00 PM", miercoles: "",        jueves: "5:00 PM", viernes: "5:00 PM", sabado: "" },
-  { clase: "Zumba",          color: "#a3e635", lunes: "5:00 PM", martes: "",        miercoles: "5:00 PM", jueves: "",        viernes: "8:00 PM", sabado: "9:00 AM" },
+  { clase: "Salsa",         color: "#ec4899", lunes: "7:00 PM", martes: "",        miercoles: "7:00 PM", jueves: "",        viernes: "6:00 PM", sabado: "10:00 AM" },
+  { clase: "Hip Hop",       color: "#a855f7", lunes: "",        martes: "7:00 PM", miercoles: "6:00 PM", jueves: "7:00 PM", viernes: "",        sabado: "12:00 PM" },
+  { clase: "Ballet",        color: "#f9a8d4", lunes: "5:00 PM", martes: "5:00 PM", miercoles: "",        jueves: "5:00 PM", viernes: "5:00 PM", sabado: "9:00 AM"  },
+  { clase: "Tap",           color: "#f97316", lunes: "",        martes: "6:00 PM", miercoles: "6:00 PM", jueves: "",        viernes: "7:00 PM", sabado: "11:00 AM" },
+  { clase: "Bachata",       color: "#d946ef", lunes: "8:00 PM", martes: "",        miercoles: "8:00 PM", jueves: "",        viernes: "8:00 PM", sabado: "10:00 AM" },
+  { clase: "Music Teatro",  color: "#22d3ee", lunes: "",        martes: "5:00 PM", miercoles: "",        jueves: "6:00 PM", viernes: "",        sabado: "1:00 PM"  },
+  { clase: "Puntas",        color: "#a3e635", lunes: "6:00 PM", martes: "",        miercoles: "5:00 PM", jueves: "",        viernes: "6:00 PM", sabado: ""         },
 ];
 
 const days = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
