@@ -55,19 +55,28 @@ export default function Footer() {
 
       {/* Bottom bar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row justify-between items-center gap-4 md:gap-6 pt-6 sm:pt-8 border-t border-white/5 text-center md:text-left">
-        <span className="text-xl sm:text-2xl font-black gradient-text-animated">SKY DANCE</span>
+        <span className="text-xl sm:text-2xl font-black gradient-text-animated">SKY DANCE STUDIO PR</span>
         <div className="flex flex-wrap justify-center gap-4 sm:gap-6 text-[10px] sm:text-xs text-white/30 uppercase tracking-widest">
-          {["Clases","Nosotros","Horarios","Contacto"].map((item) => (
+          {["Clases","Nosotros","Galeria","Horarios","Contacto"].map((item) => (
             <a key={item} href={`#${item.toLowerCase()}`}
               className="hover:text-purple-400 transition-colors py-1">
               {item}
             </a>
           ))}
         </div>
-        <p className="text-white/20 text-[10px] sm:text-xs">
-          © {new Date().getFullYear()} Sky Dance. Todos los derechos reservados.
-        </p>
+        <div className="flex items-center gap-3">
+          <a href="https://www.facebook.com/skydancestudiopr" target="_blank" rel="noopener noreferrer"
+            className="w-8 h-8 rounded-lg flex items-center justify-center text-[10px] font-black transition-all duration-300 hover:scale-110"
+            style={{ color: "#1877f2", background: "#1877f215", border: "1px solid #1877f240" }}>FB</a>
+          <a href="#" className="w-8 h-8 rounded-lg flex items-center justify-center text-[10px] font-black transition-all duration-300 hover:scale-110"
+            style={{ color: "#ec4899", background: "#ec489915", border: "1px solid #ec489940" }}>IG</a>
+          <a href="#" className="w-8 h-8 rounded-lg flex items-center justify-center text-[10px] font-black transition-all duration-300 hover:scale-110"
+            style={{ color: "#22d3ee", background: "#22d3ee15", border: "1px solid #22d3ee40" }}>TK</a>
+        </div>
       </div>
+      <p className="text-center text-white/20 text-[10px] sm:text-xs mt-4 pb-2">
+        © {new Date().getFullYear()} Sky Dance Studio PR · skydancestudio76@gmail.com
+      </p>
     </footer>
   );
 }

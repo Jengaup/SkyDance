@@ -3,11 +3,11 @@ import { motion } from "motion/react";
 import { useState } from "react";
 
 const contactInfo = [
-  { icon: "📍", label: "Isabela",         value: "Localidad Isabela — dirección próximamente", color: "#a855f7" },
-  { icon: "📍", label: "Hatillo",         value: "Localidad Hatillo — dirección próximamente", color: "#ec4899" },
-  { icon: "📞", label: "Teléfono",        value: "+1 (555) 000-0000",                          color: "#22d3ee" },
-  { icon: "✉️",  label: "Email",           value: "hola@skydance.com",                          color: "#a3e635" },
-  { icon: "🕐", label: "Horario oficina", value: "Lun–Sáb: 9:00 AM – 9:00 PM",               color: "#f97316" },
+  { icon: "📍", label: "Isabela",         value: "Isabela, Puerto Rico",                         color: "#a855f7", link: "https://maps.app.goo.gl/ko9AU7mF2EEk7QmT8" },
+  { icon: "📍", label: "Hatillo",         value: "Hatillo, Puerto Rico",                         color: "#ec4899", link: "https://maps.app.goo.gl/jghgZB3SAyyF41QE8" },
+  { icon: "✉️",  label: "Email",           value: "skydancestudio76@gmail.com",                   color: "#22d3ee", link: "mailto:skydancestudio76@gmail.com" },
+  { icon: "👍", label: "Facebook",        value: "Sky Dance Studio PR",                          color: "#a3e635", link: "https://www.facebook.com/skydancestudiopr" },
+  { icon: "🕐", label: "Horario oficina", value: "Lun–Sáb: 9:00 AM – 9:00 PM",                 color: "#f97316", link: null },
 ];
 
 const inputClass =
@@ -58,11 +58,11 @@ export default function ContactSection() {
               <p className="text-white/30 text-[10px] sm:text-xs uppercase tracking-widest mb-3 sm:mb-4">Redes Sociales</p>
               <div className="flex gap-2 sm:gap-3">
                 {[
-                  { label: "Instagram", color: "#ec4899", symbol: "IG" },
-                  { label: "TikTok",    color: "#22d3ee", symbol: "TK" },
-                  { label: "WhatsApp",  color: "#a3e635", symbol: "WA" },
+                  { label: "Facebook",  color: "#1877f2", symbol: "FB", href: "https://www.facebook.com/skydancestudiopr" },
+                  { label: "Instagram", color: "#ec4899", symbol: "IG", href: "#" },
+                  { label: "TikTok",    color: "#22d3ee", symbol: "TK", href: "#" },
                 ].map((s) => (
-                  <a key={s.label} href="#" aria-label={s.label}
+                  <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer" aria-label={s.label}
                     className="w-10 h-10 sm:w-11 sm:h-11 rounded-lg flex items-center justify-center text-xs font-black transition-all duration-300"
                     style={{ color: s.color, background: `${s.color}15`, border: `1px solid ${s.color}40` }}>
                     {s.symbol}
