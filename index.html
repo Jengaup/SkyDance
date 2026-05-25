@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sky Dance Studio PR — Ven a volar con nosotros</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─────────────────────────────────────────
+       CSS VARIABLES
+    ───────────────────────────────────────── */
+    :root {
+      --blue-deep:   #1a1aff;
+      --blue-sky:    #38b6ff;
+      --blue-glow:   #38b6ff66;
+      --gold:        #FFD700;
+      --gold-dark:   #c9a800;
+      --bg:          #0d0d0d;
+      --bg-alt:      #111318;
+      --bg-card:     #141820;
+      --text:        #ffffff;
+      --text-muted:  #8a8fa8;
+      --border:      #ffffff12;
+      --radius:      16px;
+      --ff-head:     'Bebas Neue', sans-serif;
+      --ff-body:     'DM Sans', sans-serif;
+    }
+
+    /* ─────────────────────────────────────────
+       RESET & BASE
+    ───────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--ff-body);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    img, svg { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    button { cursor: pointer; border: none; background: none; font-family: inherit; }
+
+    /* ─────────────────────────────────────────
+       SCROLL ANIMATIONS
+    ───────────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.delay-1 { transition-delay: 0.1s; }
+    .reveal.delay-2 { transition-delay: 0.2s; }
+    .reveal.delay-3 { transition-delay: 0.3s; }
+    .reveal.delay-4 { transition-delay: 0.4s; }
+    .reveal.delay-5 { transition-delay: 0.5s; }
+    .reveal.visible  { opacity: 1; transform: translateY(0); }
+
+    /* ─────────────────────────────────────────
+       NAVIGATION
+    ───────────────────────────────────────── */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 0 5vw;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.4s ease, backdrop-filter 0.4s ease;
+    }
+    .nav.scrolled {
+      background: rgba(13,13,13,0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: var(--ff-head);
+      font-size: 1.6rem;
+      letter-spacing: 0.05em;
+      background: linear-gradient(135deg, var(--blue-sky), var(--gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+      align-items: center;
+    }
+    .nav-links a {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    .nav-cta {
+      background: var(--gold);
+      color: #000 !important;
+      padding: 0.45rem 1.2rem;
+      border-radius: 50px;
+      font-weight: 700 !important;
+      color: #000;
+      transition: opacity 0.2s !important;
+    }
+    .nav-cta:hover { opacity: 0.88; }
+
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      padding: 8px;
+      cursor: pointer;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 64px; left: 0; right: 0;
+      background: rgba(13,13,13,0.97);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: 1.5rem 5vw 2rem;
+      z-index: 99;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      padding: 0.5rem 0;
+      border-bottom: 1px solid var(--border);
+      transition: color 0.2s;
+    }
+    .mobile-menu a:hover { color: var(--text); }
+    .mobile-menu .nav-cta {
+      display: inline-block;
+      margin-top: 0.5rem;
+      text-align: center;
+      color: #000 !important;
+    }
+
+    /* ─────────────────────────────────────────
+       HERO
+    ───────────────────────────────────────── */
+    .hero {
+      position: relative;
+      min-height: 100svh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      background: radial-gradient(ellipse 80% 60% at 60% 40%, #0b0b3b 0%, #0d0d0d 70%);
+    }
+
+    /* Animated grid lines */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--blue-deep)18 1px, transparent 1px),
+        linear-gradient(90deg, var(--blue-deep)18 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 20%, transparent 80%);
+      opacity: 0.35;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 5vw;
+      padding-top: 80px;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 4rem;
+    }
+
+    .hero-text {}
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--blue-deep)22;
+      border: 1px solid var(--blue-sky)44;
+      color: var(--blue-sky);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 0.4rem 1rem;
+      border-radius: 50px;
+      margin-bottom: 1.5rem;
+    }
+    .hero-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--blue-sky); animation: blink 1.8s infinite; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+    .hero-title {
+      font-family: var(--ff-head);
+      font-size: clamp(4.5rem, 12vw, 10rem);
+      line-height: 0.9;
+      letter-spacing: 0.02em;
+      margin-bottom: 0.3rem;
+    }
+    .hero-title .line1 {
+      display: block;
+      background: linear-gradient(135deg, #fff 30%, var(--blue-sky) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-title .line2 {
+      display: block;
+      background: linear-gradient(135deg, var(--blue-sky) 0%, var(--blue-deep) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-title .line3 {
+      display: block;
+      color: var(--gold);
+      -webkit-text-fill-color: var(--gold);
+      font-size: 55%;
+      letter-spacing: 0.2em;
+    }
+
+    .hero-sub {
+      font-size: 1rem;
+      color: var(--text-muted);
+      margin: 1.2rem 0 2.2rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+    .hero-sub span { color: var(--blue-sky); }
+
+    .hero-cta-row {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--blue-deep), var(--blue-sky));
+      color: #fff;
+      font-family: var(--ff-head);
+      font-size: 1.15rem;
+      letter-spacing: 0.12em;
+      padding: 0.85rem 2.4rem;
+      border-radius: 50px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 0 24px var(--blue-deep)88;
+      display: inline-block;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px var(--blue-deep)cc;
+    }
+
+    .btn-gold {
+      background: var(--gold);
+      color: #000;
+      font-family: var(--ff-head);
+      font-size: 1.15rem;
+      letter-spacing: 0.12em;
+      padding: 0.85rem 2.4rem;
+      border-radius: 50px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 0 20px #FFD70055;
+      display: inline-block;
+    }
+    .btn-gold:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px #FFD70088;
+    }
+
+    /* Dancer SVG */
+    .hero-dancer {
+      width: clamp(180px, 22vw, 320px);
+      flex-shrink: 0;
+      filter: drop-shadow(0 0 30px var(--blue-sky)66);
+      animation: float 6s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%,100% { transform: translateY(0) rotate(-1deg); }
+      50%      { transform: translateY(-18px) rotate(1deg); }
+    }
+
+    /* Floating particles */
+    .particles {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      animation: drift linear infinite;
+    }
+    @keyframes drift {
+      from { transform: translateY(100vh) scale(0); opacity: 0; }
+      10%  { opacity: 1; }
+      90%  { opacity: 1; }
+      to   { transform: translateY(-10vh) scale(1); opacity: 0; }
+    }
+
+    /* Diagonal bottom divider */
+    .hero-divider {
+      position: absolute;
+      bottom: -1px; left: 0; right: 0;
+      height: 100px;
+      background: var(--bg-alt);
+      clip-path: polygon(0 100%, 100% 0, 100% 100%);
+    }
+
+    /* ─────────────────────────────────────────
+       SECTION SHARED
+    ───────────────────────────────────────── */
+    .section {
+      padding: 6rem 5vw;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-full {
+      padding: 6rem 5vw;
+    }
+
+    .section-bg-alt {
+      background: var(--bg-alt);
+      position: relative;
+    }
+    .section-bg-alt .section { padding-top: 0; padding-bottom: 0; }
+
+    .eyebrow {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--blue-sky);
+      margin-bottom: 0.8rem;
+    }
+
+    .section-title {
+      font-family: var(--ff-head);
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      line-height: 0.95;
+      letter-spacing: 0.03em;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Diagonal top */
+    .diag-top::before {
+      content: '';
+      display: block;
+      height: 80px;
+      background: var(--bg);
+      clip-path: polygon(0 0, 100% 0, 100% 100%);
+      margin-bottom: -1px;
+    }
+
+    /* Diagonal bottom */
+    .diag-bottom::after {
+      content: '';
+      display: block;
+      height: 80px;
+      background: var(--bg);
+      clip-path: polygon(0 0, 100% 100%, 0 100%);
+      margin-top: -1px;
+    }
+
+    /* ─────────────────────────────────────────
+       ABOUT
+    ───────────────────────────────────────── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+      padding: 5rem 5vw;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .about-quote {
+      font-family: var(--ff-head);
+      font-size: clamp(2.4rem, 5vw, 4.2rem);
+      line-height: 1.05;
+      letter-spacing: 0.02em;
+    }
+    .about-quote em {
+      font-style: normal;
+      background: linear-gradient(135deg, var(--blue-sky), var(--gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .about-quote-attr {
+      margin-top: 1rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .about-body p {
+      color: var(--text-muted);
+      margin-bottom: 1.2rem;
+      font-size: 1.05rem;
+      line-height: 1.75;
+    }
+    .about-body strong { color: var(--text); font-weight: 600; }
+
+    .about-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 1.8rem;
+    }
+    .about-tag {
+      background: var(--bg-card);
+      border: 1px solid var(--blue-sky)33;
+      color: var(--blue-sky);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.4rem 1rem;
+      border-radius: 50px;
+    }
+
+    /* ─────────────────────────────────────────
+       CLASSES
+    ───────────────────────────────────────── */
+    .classes-header {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+
+    .classes-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+
+    .class-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem 1.8rem;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+      cursor: default;
+    }
+    .class-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 120%, var(--blue-sky)18 0%, transparent 70%);
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+    .class-card:hover {
+      border-color: var(--blue-sky)88;
+      transform: translateY(-4px);
+      box-shadow: 0 0 30px var(--blue-glow), 0 12px 40px #00000088;
+    }
+    .class-card:hover::before { opacity: 1; }
+
+    .class-icon {
+      font-size: 2.6rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+    .class-name {
+      font-family: var(--ff-head);
+      font-size: 1.8rem;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+      color: #fff;
+    }
+    .class-ages {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--blue-sky);
+      margin-bottom: 0.8rem;
+    }
+    .class-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    /* Corner accent */
+    .class-card::after {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 60px; height: 60px;
+      background: linear-gradient(225deg, var(--blue-deep)44, transparent 70%);
+      border-radius: 0 var(--radius) 0 0;
+    }
+
+    /* ─────────────────────────────────────────
+       INSTRUCTORS
+    ───────────────────────────────────────── */
+    .instructors-header {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+
+    .instructors-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .instructor-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2.5rem 2rem;
+      text-align: center;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .instructor-card:hover {
+      border-color: var(--gold)55;
+      transform: translateY(-4px);
+    }
+
+    .instructor-avatar {
+      width: 88px;
+      height: 88px;
+      border-radius: 50%;
+      margin: 0 auto 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--ff-head);
+      font-size: 2rem;
+      letter-spacing: 0.05em;
+      position: relative;
+    }
+    .instructor-avatar::after {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      background: linear-gradient(135deg, var(--blue-sky), var(--gold)) border-box;
+      -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: destination-out;
+      mask-composite: exclude;
+    }
+
+    .avatar-a { background: linear-gradient(135deg, #1a1aff33, #1a1aff66); color: var(--blue-sky); }
+    .avatar-b { background: linear-gradient(135deg, #FFD70022, #FFD70044); color: var(--gold); }
+    .avatar-c { background: linear-gradient(135deg, #38b6ff22, #38b6ff44); color: #88ddff; }
+
+    .instructor-name {
+      font-family: var(--ff-head);
+      font-size: 1.6rem;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.3rem;
+    }
+    .instructor-role {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--blue-sky);
+      margin-bottom: 0.8rem;
+    }
+    .instructor-bio {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    /* ─────────────────────────────────────────
+       ENROLLMENT CTA
+    ───────────────────────────────────────── */
+    .enroll-section {
+      background: linear-gradient(135deg, var(--gold) 0%, #ffed4a 50%, var(--gold-dark) 100%);
+      position: relative;
+      overflow: hidden;
+      padding: 0;
+    }
+    .enroll-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(#00000012 1px, transparent 1px),
+        linear-gradient(90deg, #00000012 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+
+    /* Diagonal cuts */
+    .enroll-top {
+      height: 70px;
+      background: var(--bg-alt);
+      clip-path: polygon(0 0, 100% 0, 100% 100%);
+      margin-bottom: -1px;
+    }
+    .enroll-bottom {
+      height: 70px;
+      background: var(--bg);
+      clip-path: polygon(0 0, 100% 100%, 0 100%);
+      margin-top: -1px;
+    }
+
+    .enroll-inner {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 4rem 5vw;
+    }
+
+    .enroll-eyebrow {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: #000000aa;
+      margin-bottom: 0.8rem;
+    }
+
+    .enroll-title {
+      font-family: var(--ff-head);
+      font-size: clamp(3rem, 7vw, 6rem);
+      line-height: 0.95;
+      letter-spacing: 0.03em;
+      color: #000;
+      margin-bottom: 1rem;
+    }
+    .enroll-title span { display: block; font-size: 55%; color: #000000bb; letter-spacing: 0.15em; }
+
+    .enroll-sub {
+      font-size: 1.05rem;
+      color: #000000aa;
+      margin-bottom: 2.5rem;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .btn-whatsapp {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      background: #25D366;
+      color: #fff;
+      font-family: var(--ff-head);
+      font-size: 1.3rem;
+      letter-spacing: 0.12em;
+      padding: 1rem 2.8rem;
+      border-radius: 50px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 20px #25D36644;
+    }
+    .btn-whatsapp:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px #25D36677;
+    }
+    .btn-whatsapp svg { width: 26px; height: 26px; fill: #fff; flex-shrink: 0; }
+
+    /* ─────────────────────────────────────────
+       CONTACT / FOOTER
+    ───────────────────────────────────────── */
+    .footer {
+      background: #080808;
+      border-top: 1px solid var(--border);
+      padding: 4rem 5vw 2rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 3rem;
+      max-width: 1200px;
+      margin: 0 auto 3rem;
+    }
+
+    .footer-brand-name {
+      font-family: var(--ff-head);
+      font-size: 2.2rem;
+      letter-spacing: 0.05em;
+      background: linear-gradient(135deg, var(--blue-sky), var(--gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.8rem;
+    }
+    .footer-tagline {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+      font-style: italic;
+    }
+
+    .footer-location {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    .footer-loc-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+    .footer-loc-item .loc-icon {
+      font-size: 1rem;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+    .footer-loc-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--blue-sky);
+      display: block;
+      margin-bottom: 0.1rem;
+    }
+
+    .footer-col-title {
+      font-family: var(--ff-head);
+      font-size: 1.1rem;
+      letter-spacing: 0.1em;
+      margin-bottom: 1.2rem;
+      color: var(--text);
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    .footer-links a {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--blue-sky); }
+
+    .social-row {
+      display: flex;
+      gap: 0.8rem;
+      margin-top: 1.5rem;
+    }
+    .social-btn {
+      width: 42px; height: 42px;
+      border-radius: 10px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+    }
+    .social-btn:hover {
+      border-color: var(--blue-sky)88;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px var(--blue-glow);
+    }
+    .social-btn svg { width: 18px; height: 18px; fill: var(--text-muted); transition: fill 0.2s; }
+    .social-btn:hover svg { fill: var(--blue-sky); }
+
+    .footer-bottom {
+      border-top: 1px solid var(--border);
+      padding-top: 1.5rem;
+      text-align: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .footer-copy {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+    .footer-pr {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    /* ─────────────────────────────────────────
+       RESPONSIVE — TABLET
+    ───────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .nav-links, .nav > a.nav-cta { display: none; }
+      .hamburger { display: flex; }
+
+      .hero-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      .hero-dancer { display: none; }
+      .hero-badge { margin-left: auto; margin-right: auto; }
+      .hero-cta-row { justify-content: center; }
+
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; text-align: center; }
+      .about-tags { justify-content: center; }
+
+      .classes-grid { grid-template-columns: repeat(2, 1fr); }
+
+      .instructors-grid { grid-template-columns: repeat(2, 1fr); }
+
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .footer-grid > *:first-child { grid-column: 1 / -1; }
+    }
+
+    /* ─────────────────────────────────────────
+       RESPONSIVE — MOBILE
+    ───────────────────────────────────────── */
+    @media (max-width: 560px) {
+      .classes-grid { grid-template-columns: 1fr; }
+      .instructors-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+      .hero-title { font-size: clamp(3.5rem, 17vw, 5.5rem); }
+      .section { padding: 4rem 5vw; }
+      .section-full { padding: 4rem 5vw; }
+      .about-grid { padding: 4rem 5vw; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── NAVIGATION ─── -->
+  <nav class="nav" id="nav">
+    <span class="nav-logo">Sky Dance</span>
+    <ul class="nav-links">
+      <li><a href="#clases">Clases</a></li>
+      <li><a href="#instructores">Instructores</a></li>
+      <li><a href="#horarios">Horarios</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+      <li><a href="#horarios" class="nav-cta">Matrícula</a></li>
+    </ul>
+    <div class="hamburger" id="hamburger" role="button" aria-label="Menú" tabindex="0">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#clases"        onclick="closeMenu()">Clases</a>
+    <a href="#instructores"  onclick="closeMenu()">Instructores</a>
+    <a href="#horarios"      onclick="closeMenu()">Horarios</a>
+    <a href="#contacto"      onclick="closeMenu()">Contacto</a>
+    <a href="#horarios" class="nav-cta btn-gold" onclick="closeMenu()">Matrícula Abierta</a>
+  </div>
+
+  <!-- ─── HERO ─── -->
+  <section class="hero" id="inicio">
+
+    <!-- Particles -->
+    <div class="particles" id="particles"></div>
+
+    <div class="hero-content">
+      <div class="hero-text">
+        <div class="hero-badge reveal">Academia de Baile Certificada</div>
+
+        <h1 class="hero-title reveal delay-1">
+          <span class="line1">Sky Dance</span>
+          <span class="line2">Studio</span>
+          <span class="line3">Puerto Rico</span>
+        </h1>
+
+        <p class="hero-sub reveal delay-2">
+          <span>Isabela</span> · <span>Hatillo</span> · Puerto Rico
+        </p>
+
+        <p class="reveal delay-3" style="color:var(--text-muted);max-width:480px;margin-bottom:2rem;font-size:1.05rem;line-height:1.7;">
+          Ven a volar con nosotros ✨ — Ballet, Jazz, Hip Hop, Salsa, Contemporary, Tap y más.
+          Para niños, jóvenes y adultos.
+        </p>
+
+        <div class="hero-cta-row reveal delay-4">
+          <a href="#clases" class="btn-primary">Ver Clases</a>
+          <a href="#horarios" class="btn-gold">Matrícula 2025</a>
+        </div>
+      </div>
+
+      <!-- Abstract Dancer SVG -->
+      <svg class="hero-dancer reveal delay-2" viewBox="0 0 260 520" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <linearGradient id="dg1" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%"   stop-color="#38b6ff" stop-opacity="0.9"/>
+            <stop offset="100%" stop-color="#1a1aff" stop-opacity="0.6"/>
+          </linearGradient>
+          <linearGradient id="dg2" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%"   stop-color="#FFD700" stop-opacity="0.8"/>
+            <stop offset="100%" stop-color="#38b6ff" stop-opacity="0.5"/>
+          </linearGradient>
+          <filter id="glow">
+            <feGaussianBlur stdDeviation="3" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+
+        <!-- Head -->
+        <circle cx="130" cy="52" r="22" fill="none" stroke="url(#dg1)" stroke-width="2.5" filter="url(#glow)"/>
+
+        <!-- Neck & torso -->
+        <path d="M130 74 Q128 100 124 130 Q120 158 118 185" fill="none" stroke="url(#dg1)" stroke-width="3" stroke-linecap="round"/>
+
+        <!-- Left arm raised high -->
+        <path d="M124 110 Q105 88 80 68 Q62 52 48 38" fill="none" stroke="url(#dg1)" stroke-width="2.8" stroke-linecap="round"/>
+        <!-- Left arm extension -->
+        <path d="M48 38 Q38 30 32 22" fill="none" stroke="url(#dg2)" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+
+        <!-- Right arm extended outward -->
+        <path d="M124 115 Q155 108 185 95 Q205 86 222 75" fill="none" stroke="url(#dg1)" stroke-width="2.8" stroke-linecap="round"/>
+        <path d="M222 75 Q234 68 242 62" fill="none" stroke="url(#dg2)" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+
+        <!-- Skirt / flow lines -->
+        <path d="M118 185 Q95 200 72 230 Q55 254 42 285" fill="none" stroke="url(#dg1)" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M118 185 Q118 205 120 230 Q122 258 125 288" fill="none" stroke="url(#dg1)" stroke-width="3" stroke-linecap="round"/>
+        <path d="M118 185 Q135 200 152 225 Q165 248 172 280" fill="none" stroke="url(#dg2)" stroke-width="2.5" stroke-linecap="round" opacity="0.8"/>
+
+        <!-- Flowing skirt fabric -->
+        <path d="M72 230 Q58 258 48 295 Q44 320 50 350" fill="none" stroke="url(#dg1)" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+        <path d="M125 288 Q124 315 120 345 Q116 370 108 400" fill="none" stroke="url(#dg1)" stroke-width="2.8" stroke-linecap="round"/>
+        <path d="M172 280 Q178 310 180 342 Q182 368 178 395" fill="none" stroke="url(#dg2)" stroke-width="2.2" stroke-linecap="round" opacity="0.7"/>
+
+        <!-- Motion trail dots -->
+        <circle cx="44" cy="38" r="3" fill="url(#dg2)" opacity="0.7"/>
+        <circle cx="38" cy="28" r="2" fill="url(#dg2)" opacity="0.5"/>
+        <circle cx="244" cy="62" r="3" fill="url(#dg1)" opacity="0.7"/>
+        <circle cx="250" cy="54" r="2" fill="url(#dg1)" opacity="0.5"/>
+
+        <!-- Sparkles around dancer -->
+        <text x="18"  y="80"  font-size="14" fill="#FFD700" opacity="0.8">✦</text>
+        <text x="225" y="120" font-size="12" fill="#38b6ff" opacity="0.7">✦</text>
+        <text x="88"  y="420" font-size="10" fill="#38b6ff" opacity="0.6">✦</text>
+        <text x="175" y="440" font-size="14" fill="#FFD700" opacity="0.7">✦</text>
+        <text x="50"  y="490" font-size="10" fill="#1a1aff" opacity="0.5">✦</text>
+      </svg>
+    </div>
+
+    <div class="hero-divider"></div>
+  </section>
+
+  <!-- ─── ABOUT ─── -->
+  <div class="section-bg-alt diag-bottom" id="nosotros">
+    <div class="about-grid">
+      <div>
+        <p class="eyebrow reveal">Quiénes Somos</p>
+        <blockquote class="about-quote reveal delay-1">
+          "El baile es el<br/><em>lenguaje del alma</em><br/>y aquí lo hablamos."
+        </blockquote>
+        <p class="about-quote-attr reveal delay-2">— Sky Dance Studio PR</p>
+      </div>
+      <div class="about-body">
+        <p class="reveal delay-1">
+          <strong>Sky Dance Studio PR</strong> es una academia de baile con corazón puertorriqueño, ubicada en Isabela y Hatillo. Nacimos para darle a nuestra comunidad un espacio donde el arte, la disciplina y la alegría se unen.
+        </p>
+        <p class="reveal delay-2">
+          Ofrecemos clases para <strong>niños desde los 3 años</strong>, jóvenes y adultos en una variedad de estilos. Nuestros instructores son profesionales con años de experiencia en competencias nacionales e internacionales.
+        </p>
+        <p class="reveal delay-3">
+          Ya sea que busques técnica de ballet clásico, el ritmo del hip hop o la sensualidad de la salsa — aquí encontrarás tu clase ideal.
+        </p>
+        <div class="about-tags reveal delay-4">
+          <span class="about-tag">Niños 3+</span>
+          <span class="about-tag">Jóvenes</span>
+          <span class="about-tag">Adultos</span>
+          <span class="about-tag">Isabela</span>
+          <span class="about-tag">Hatillo</span>
+          <span class="about-tag">Certificados</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── CLASSES ─── -->
+  <section id="clases" class="section">
+    <div class="classes-header">
+      <p class="eyebrow reveal">Nuestros Estilos</p>
+      <h2 class="section-title reveal delay-1">Clases para Todos</h2>
+      <p class="reveal delay-2" style="color:var(--text-muted);max-width:520px;margin:0 auto;">
+        Desde los primeros pasos hasta el escenario — tenemos el estilo perfecto para cada bailarín.
+      </p>
+    </div>
+
+    <div class="classes-grid">
+      <div class="class-card reveal">
+        <span class="class-icon">🩰</span>
+        <h3 class="class-name">Ballet</h3>
+        <p class="class-ages">Todas las edades · Principiante–Avanzado</p>
+        <p class="class-desc">Técnica clásica que construye disciplina, postura y elegancia. La base de toda danza.</p>
+      </div>
+      <div class="class-card reveal delay-1">
+        <span class="class-icon">🎷</span>
+        <h3 class="class-name">Jazz</h3>
+        <p class="class-ages">6 años en adelante</p>
+        <p class="class-desc">Energía, ritmo y expresividad. Un estilo dinámico perfecto para desarrollar personalidad artística.</p>
+      </div>
+      <div class="class-card reveal delay-2">
+        <span class="class-icon">🎤</span>
+        <h3 class="class-name">Hip Hop</h3>
+        <p class="class-ages">5 años en adelante</p>
+        <p class="class-desc">Flow urbano y coreografías modernas. El estilo más popular entre nuestra generación joven.</p>
+      </div>
+      <div class="class-card reveal delay-1">
+        <span class="class-icon">💃</span>
+        <h3 class="class-name">Salsa &amp; Bachata</h3>
+        <p class="class-ages">10 años en adelante · Todos los niveles</p>
+        <p class="class-desc">Orgullo caribeño en cada paso. Clases individuales y en pareja con sabor boricua.</p>
+      </div>
+      <div class="class-card reveal delay-2">
+        <span class="class-icon">🌊</span>
+        <h3 class="class-name">Contemporary</h3>
+        <p class="class-ages">Intermedio–Avanzado</p>
+        <p class="class-desc">Fusión de técnicas modernas y expresión libre. Arte escénico en su forma más pura.</p>
+      </div>
+      <div class="class-card reveal delay-3">
+        <span class="class-icon">🌟</span>
+        <h3 class="class-name">Tiny Tots</h3>
+        <p class="class-ages">Edades 3–5 años</p>
+        <p class="class-desc">Introducción al movimiento y la música para los más pequeños. ¡Diversión garantizada!</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── INSTRUCTORS ─── -->
+  <div class="section-bg-alt diag-top diag-bottom">
+    <section id="instructores" class="section" style="padding-top:5rem;padding-bottom:5rem;">
+      <div class="instructors-header">
+        <p class="eyebrow reveal">Nuestro Equipo</p>
+        <h2 class="section-title reveal delay-1">Los Instructores</h2>
+        <p class="reveal delay-2" style="color:var(--text-muted);max-width:480px;margin:0 auto;">
+          Profesionales apasionados comprometidos con el crecimiento artístico de cada alumno.
+        </p>
+      </div>
+
+      <div class="instructors-grid">
+        <div class="instructor-card reveal">
+          <div class="instructor-avatar avatar-a">MC</div>
+          <h3 class="instructor-name">María Cruz</h3>
+          <p class="instructor-role">Ballet · Contemporary</p>
+          <p class="instructor-bio">Formada en la Escuela de Danza de Puerto Rico con más de 12 años de experiencia en enseñanza y competencias internacionales.</p>
+        </div>
+        <div class="instructor-card reveal delay-2">
+          <div class="instructor-avatar avatar-b">JR</div>
+          <h3 class="instructor-name">Josué Rivera</h3>
+          <p class="instructor-role">Hip Hop · Jazz</p>
+          <p class="instructor-bio">Coreógrafo y bailarín urbano con participaciones en festivales nacionales. Especialista en técnicas de freestyle y breaking.</p>
+        </div>
+        <div class="instructor-card reveal delay-3">
+          <div class="instructor-avatar avatar-c">AL</div>
+          <h3 class="instructor-name">Ana López</h3>
+          <p class="instructor-role">Salsa · Bachata · Tiny Tots</p>
+          <p class="instructor-bio">Campeona regional de salsa con pasión por transmitir la cultura del baile caribeño a las nuevas generaciones.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ─── ENROLLMENT CTA ─── -->
+  <section id="horarios" class="enroll-section">
+    <div class="enroll-top"></div>
+    <div class="enroll-inner">
+      <p class="enroll-eyebrow reveal">Cupos Limitados</p>
+      <h2 class="enroll-title reveal delay-1">
+        ¡Matrícula Abierta!
+        <span>Año Académico 2025–2026</span>
+      </h2>
+      <p class="enroll-sub reveal delay-2">
+        Reserva tu espacio hoy. Clases disponibles en Isabela y Hatillo.<br/>
+        Primera clase de prueba completamente gratis.
+      </p>
+      <a href="#" class="btn-whatsapp reveal delay-3">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+        Escríbenos por WhatsApp
+      </a>
+    </div>
+    <div class="enroll-bottom"></div>
+  </section>
+
+  <!-- ─── CONTACT / FOOTER ─── -->
+  <footer id="contacto" class="footer">
+    <div class="footer-grid">
+      <!-- Brand -->
+      <div>
+        <div class="footer-brand-name">Sky Dance Studio PR</div>
+        <p class="footer-tagline">"Ven a volar con nosotros ✨"</p>
+        <div class="footer-location">
+          <div class="footer-loc-item">
+            <span class="loc-icon">📍</span>
+            <div>
+              <span class="footer-loc-label">Isabela</span>
+              Dirección · Isabela, PR 00662
+            </div>
+          </div>
+          <div class="footer-loc-item">
+            <span class="loc-icon">📍</span>
+            <div>
+              <span class="footer-loc-label">Hatillo</span>
+              Dirección · Hatillo, PR 00659
+            </div>
+          </div>
+          <div class="footer-loc-item">
+            <span class="loc-icon">📞</span>
+            <div>
+              <span class="footer-loc-label">Teléfono</span>
+              (787) 000-0000
+            </div>
+          </div>
+          <div class="footer-loc-item">
+            <span class="loc-icon">✉️</span>
+            <div>
+              <span class="footer-loc-label">Email</span>
+              hola@skydancestudiopr.com
+            </div>
+          </div>
+        </div>
+        <!-- Social icons -->
+        <div class="social-row">
+          <!-- Facebook -->
+          <a href="#" class="social-btn" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+            </svg>
+          </a>
+          <!-- Instagram -->
+          <a href="#" class="social-btn" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+            </svg>
+          </a>
+          <!-- TikTok -->
+          <a href="#" class="social-btn" aria-label="TikTok">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.76a4.85 4.85 0 01-1.01-.07z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Quick Links -->
+      <div>
+        <h4 class="footer-col-title">Clases</h4>
+        <ul class="footer-links">
+          <li><a href="#clases">Ballet</a></li>
+          <li><a href="#clases">Jazz</a></li>
+          <li><a href="#clases">Hip Hop</a></li>
+          <li><a href="#clases">Salsa &amp; Bachata</a></li>
+          <li><a href="#clases">Contemporary</a></li>
+          <li><a href="#clases">Tiny Tots</a></li>
+        </ul>
+      </div>
+
+      <!-- Info -->
+      <div>
+        <h4 class="footer-col-title">Academia</h4>
+        <ul class="footer-links">
+          <li><a href="#nosotros">Nosotros</a></li>
+          <li><a href="#instructores">Instructores</a></li>
+          <li><a href="#horarios">Horarios</a></li>
+          <li><a href="#horarios">Matrícula</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2025 Sky Dance Studio PR. Todos los derechos reservados.</p>
+      <p class="footer-pr">Hecho con 💙 en <strong style="color:var(--text)">Puerto Rico</strong> 🇵🇷</p>
+    </div>
+  </footer>
+
+  <!-- ─── JAVASCRIPT ─── -->
+  <script>
+    /* ── Navbar scroll effect ── */
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 40);
+    });
+
+    /* ── Hamburger menu ── */
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    hamburger.addEventListener('click', toggleMenu);
+    hamburger.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') toggleMenu(); });
+
+    function toggleMenu() {
+      hamburger.classList.toggle('open');
+      mobileMenu.classList.toggle('open');
+    }
+    window.closeMenu = function() {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+    };
+
+    /* ── Scroll reveal (IntersectionObserver) ── */
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    /* ── Floating particles ── */
+    const particleContainer = document.getElementById('particles');
+    const colors = ['#38b6ff', '#1a1aff', '#FFD700', '#ffffff'];
+    const count = window.innerWidth < 600 ? 14 : 28;
+
+    for (let i = 0; i < count; i++) {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      const size = Math.random() * 4 + 1.5;
+      const color = colors[Math.floor(Math.random() * colors.length)];
+      const left = Math.random() * 100;
+      const duration = Math.random() * 12 + 8;
+      const delay = Math.random() * 10;
+      const opacity = Math.random() * 0.4 + 0.1;
+
+      p.style.cssText = `
+        width:${size}px; height:${size}px;
+        left:${left}%;
+        background:${color};
+        opacity:${opacity};
+        box-shadow: 0 0 ${size * 2}px ${color};
+        animation-duration:${duration}s;
+        animation-delay:-${delay}s;
+      `;
+      particleContainer.appendChild(p);
+    }
+  </script>
+</body>
+</html>
