@@ -103,8 +103,8 @@ export default function GallerySection() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="relative rounded-2xl overflow-hidden"
-          style={{ aspectRatio: "16/9" }}
+          className="relative rounded-2xl overflow-hidden bg-black"
+          style={{ aspectRatio: "4/3" }}
           onMouseEnter={() => setPaused(true)}
           onMouseLeave={() => setPaused(false)}
         >
@@ -119,7 +119,7 @@ export default function GallerySection() {
               animate="center"
               exit="exit"
               transition={{ duration: 0.5, ease: "easeInOut" }}
-              className="absolute inset-0 w-full h-full object-cover cursor-pointer"
+              className="absolute inset-0 w-full h-full object-contain cursor-pointer"
               onClick={() => setLightbox(current)}
             />
           </AnimatePresence>
