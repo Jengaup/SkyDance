@@ -4,16 +4,16 @@ import { useState } from "react";
 
 const photos = [
   { src: "/fotos/670937440_18416445175134719_1064323023893670023_n.jpg",  alt: "Equipo Sky Dance — Campeones All Dance PR 2026",  caption: "🏆 Grand Champions · All Dance Puerto Rico 2026" },
-  { src: "/fotos/683570671_18418121794134719_1868718503442159110_n.jpg",  alt: "Medallistas All Dance PR 2026",                  caption: "🥇 Medallistas · All Dance Puerto Rico 2026" },
-  { src: "/fotos/683656743_18418121785134719_1428777532013717841_n.jpg",  alt: "Bailarinas en competencia",                      caption: "✨ Sky Dance en el escenario" },
-  { src: "/fotos/684284593_1424294383065610_4582390303114057001_n.jpg",   alt: "Performance grupal en escenario",                caption: "💃 Performance grupal · All Dance PR" },
-  { src: "/fotos/686974308_1424294386398943_2368728705505639202_n.jpg",   alt: "Solo contemporáneo",                             caption: "🌊 Solo contemporáneo · All Dance PR" },
-  { src: "/fotos/686811298_14262907406207641_4598089432210650265_n.jpg",  alt: "Sky Dance en competencia",                       caption: "⭐ Presentación · All Dance Puerto Rico 2026" },
-  { src: "/fotos/688887466_1425369962958052_4134452874493227124_n.jpg",   alt: "Bailarines Sky Dance PR",                        caption: "💫 Sky Dance Studio PR · Campeones" },
-  { src: "/fotos/689036465_1426207399540975_8197830958130482299_n.jpg",   alt: "Competencia All Dance PR",                       caption: "🎖️ Competencia Nacional · All Dance PR" },
-  { src: "/fotos/702210791_1439212614907120_8663173996364897358_n.jpg",   alt: "Sky Dance competencia 2026",                     caption: "🏅 All Dance Puerto Rico 2026" },
-  { src: "/fotos/702215301_1439212598240455_7409609665681530803_n.jpg",   alt: "Equipo Sky Dance 2026",                          caption: "🌟 Equipo Sky Dance · Isabela & Hatillo" },
-  { src: "/fotos/703170403_1439212608240454_5325879376711441794_n.jpg",   alt: "Sky Dance campeones nacionales",                 caption: "🇵🇷 Orgullo Boricua · Sky Dance Studio PR" },
+  { src: "/fotos/683570671_18418121794134719_1868718503442159110_n.jpg",  alt: "Medallistas All Dance PR 2026",                   caption: "🥇 Medallistas · All Dance Puerto Rico 2026" },
+  { src: "/fotos/683656743_18418121785134719_1428777532013717841_n.jpg",  alt: "Bailarinas en competencia",                       caption: "✨ Sky Dance en el escenario" },
+  { src: "/fotos/684284593_1424294383065610_4582390303114057001_n.jpg",   alt: "Performance grupal en escenario",                 caption: "💃 Performance grupal · All Dance PR" },
+  { src: "/fotos/686974308_1424294386398943_2368728705505639202_n.jpg",   alt: "Solo contemporáneo",                              caption: "🌊 Solo contemporáneo · All Dance PR" },
+  { src: "/fotos/686811298_14262907406207641_4598089432210650265_n.jpg",  alt: "Sky Dance en competencia",                        caption: "⭐ Presentación · All Dance Puerto Rico 2026" },
+  { src: "/fotos/688887466_1425369962958052_4134452874493227124_n.jpg",   alt: "Bailarines Sky Dance PR",                         caption: "💫 Sky Dance Studio PR · Campeones" },
+  { src: "/fotos/689036465_1426207399540975_8197830958130482299_n.jpg",   alt: "Competencia All Dance PR",                        caption: "🎖️ Competencia Nacional · All Dance PR" },
+  { src: "/fotos/702210791_1439212614907120_8663173996364897358_n.jpg",   alt: "Sky Dance competencia 2026",                      caption: "🏅 All Dance Puerto Rico 2026" },
+  { src: "/fotos/702215301_1439212598240455_7409609665681530803_n.jpg",   alt: "Equipo Sky Dance 2026",                           caption: "🌟 Equipo Sky Dance · Isabela & Hatillo" },
+  { src: "/fotos/703170403_1439212608240454_5325879376711441794_n.jpg",   alt: "Sky Dance campeones nacionales",                  caption: "🇵🇷 Orgullo Boricua · Sky Dance Studio PR" },
 ];
 
 export default function GallerySection() {
@@ -80,7 +80,7 @@ export default function GallerySection() {
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              transition={{ delay: (i % 6) * 0.08 }}
+              transition={{ delay: i * 0.08 }}
               onClick={() => setSelected(i)}
               className={`relative rounded-2xl overflow-hidden cursor-pointer group ${i === 0 ? "col-span-2 sm:col-span-2 row-span-1" : ""}`}
               style={{ aspectRatio: i === 0 ? "16/7" : "4/3" }}
