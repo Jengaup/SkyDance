@@ -30,9 +30,10 @@ export default function Navbar() {
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 flex justify-between items-center">
-          <a href="#" className="relative">
-            <span className="text-xl sm:text-2xl font-black tracking-wider gradient-text-animated">
-              SKY DANCE
+          <a href="#" className="relative flex items-center gap-2 sm:gap-3">
+            <img src="/logo.png" alt="Sky Dance Studio PR" className="h-10 sm:h-12 w-auto" />
+            <span className="text-base sm:text-lg font-black tracking-wider gradient-text-animated leading-tight">
+              SKY DANCE<br className="hidden sm:block" /><span className="text-xs sm:text-sm font-bold opacity-80"> STUDIO PR</span>
             </span>
           </a>
 

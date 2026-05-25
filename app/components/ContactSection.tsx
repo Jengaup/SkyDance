@@ -40,19 +40,31 @@ export default function ContactSection() {
           <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }} transition={{ duration: 0.7 }}
             className="lg:col-span-2 flex flex-col gap-3 sm:gap-4">
-            {contactInfo.map((item) => (
-              <div key={item.label}
-                className="glass rounded-xl p-4 sm:p-5 border border-white/5 flex items-start gap-3 sm:gap-4">
-                <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg flex items-center justify-center text-base sm:text-lg flex-shrink-0"
-                  style={{ background: `${item.color}20`, border: `1px solid ${item.color}40` }}>
-                  {item.icon}
+            {contactInfo.map((item) => {
+              const inner = (
+                <>
+                  <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg flex items-center justify-center text-base sm:text-lg flex-shrink-0"
+                    style={{ background: `${item.color}20`, border: `1px solid ${item.color}40` }}>
+                    {item.icon}
+                  </div>
+                  <div className="min-w-0">
+                    <div className="text-white/30 text-[10px] sm:text-xs uppercase tracking-widest mb-0.5 sm:mb-1">{item.label}</div>
+                    <div className="text-white font-semibold text-xs sm:text-sm break-words">{item.value}</div>
+                  </div>
+                </>
+              );
+              return item.link ? (
+                <a key={item.label} href={item.link} target="_blank" rel="noopener noreferrer"
+                  className="glass rounded-xl p-4 sm:p-5 border border-white/5 flex items-start gap-3 sm:gap-4 hover:border-white/20 transition-colors">
+                  {inner}
+                </a>
+              ) : (
+                <div key={item.label}
+                  className="glass rounded-xl p-4 sm:p-5 border border-white/5 flex items-start gap-3 sm:gap-4">
+                  {inner}
                 </div>
-                <div className="min-w-0">
-                  <div className="text-white/30 text-[10px] sm:text-xs uppercase tracking-widest mb-0.5 sm:mb-1">{item.label}</div>
-                  <div className="text-white font-semibold text-xs sm:text-sm break-words">{item.value}</div>
-                </div>
-              </div>
-            ))}
+              );
+            })}
 
             <div className="glass rounded-xl p-4 sm:p-5 border border-white/5">
               <p className="text-white/30 text-[10px] sm:text-xs uppercase tracking-widest mb-3 sm:mb-4">Redes Sociales</p>
