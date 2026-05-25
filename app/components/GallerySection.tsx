@@ -1,23 +1,55 @@
 "use client";
-import { motion } from "motion/react";
-import { useState } from "react";
+import { motion, AnimatePresence } from "motion/react";
+import { useState, useEffect, useCallback } from "react";
 
 const photos = [
-  { src: "/fotos/foto1.jpg", alt: "Equipo Sky Dance — Campeones All Dance PR 2026", caption: "🏆 Grand Champions · All Dance Puerto Rico 2026" },
-  { src: "/fotos/foto2.jpg", alt: "Medallistas All Dance PR 2026", caption: "🥇 Medallistas · All Dance Puerto Rico 2026" },
-  { src: "/fotos/foto3.jpg", alt: "Bailarinas en competencia", caption: "✨ Sky Dance en el escenario" },
-  { src: "/fotos/foto4.jpg", alt: "Performance grupal en escenario", caption: "💃 Performance grupal · All Dance PR" },
-  { src: "/fotos/foto5.jpg", alt: "Solo contemporáneo", caption: "🌊 Solo contemporáneo · All Dance PR" },
+  "/fotos/670937440_18416445175134719_1064323023893670023_n.jpg",
+  "/fotos/683570671_18418121794134719_1868718503442159110_n.jpg",
+  "/fotos/683656743_18418121785134719_1428777532013717841_n.jpg",
+  "/fotos/684284593_1424294383065610_4582390303114057001_n.jpg",
+  "/fotos/686974308_1424294386398943_2368728705505639202_n.jpg",
+  "/fotos/688811298_1426207406207641_4598089432210650265_n.jpg",
+  "/fotos/688887466_1425369962958052_4134452874493227124_n.jpg",
+  "/fotos/689036465_1426207399540975_8197830958130482299_n.jpg",
+  "/fotos/702210791_1439212614907120_8663173996364897358_n.jpg",
+  "/fotos/702215301_1439212598240455_7409609665681530803_n.jpg",
+  "/fotos/703170403_1439212608240454_5325879376711441794_n.jpg",
 ];
 
 export default function GallerySection() {
-  const [selected, setSelected] = useState<number | null>(null);
+  const [current, setCurrent] = useState(0);
+  const [direction, setDirection] = useState(1);
+  const [lightbox, setLightbox] = useState<number | null>(null);
+  const [paused, setPaused] = useState(false);
+
+  const go = useCallback((next: number, dir: number) => {
+    setDirection(dir);
+    setCurrent((next + photos.length) % photos.length);
+  }, []);
+
+  const prev = () => go(current - 1, -1);
+  const next = () => go(current + 1, 1);
+
+  useEffect(() => {
+    if (paused || lightbox !== null) return;
+    const id = setInterval(() => go(current + 1, 1), 4000);
+    return () => clearInterval(id);
+  }, [current, paused, lightbox, go]);
+
+  const variants = {
+    enter: (dir: number) => ({ x: dir > 0 ? "100%" : "-100%", opacity: 0 }),
+    center: { x: 0, opacity: 1 },
+    exit: (dir: number) => ({ x: dir > 0 ? "-100%" : "100%", opacity: 0 }),
+  };
 
   return (
     <section id="galeria" className="py-20 sm:py-28 px-4 sm:px-6 relative">
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[200px] sm:w-[600px] h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent" style={{ background: "linear-gradient(to right, transparent, #FFD700aa, transparent)" }} />
+      <div
+        className="absolute top-0 left-1/2 -translate-x-1/2 w-[200px] sm:w-[600px] h-px"
+        style={{ background: "linear-gradient(to right, transparent, #FFD700aa, transparent)" }}
+      />
 
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-5xl mx-auto">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -46,9 +78,9 @@ export default function GallerySection() {
         >
           {[
             { icon: "🏆", text: "Grand Champions", sub: "All Dance PR 2026" },
-            { icon: "🥇", text: "Múltiples Oros",   sub: "Competencias Nacionales" },
-            { icon: "🎖️", text: "10+ Años",         sub: "Formando Campeones" },
-            { icon: "🇵🇷", text: "Orgullo Boricua",  sub: "Isabela · Hatillo" },
+            { icon: "🥇", text: "Múltiples Oros", sub: "Competencias Nacionales" },
+            { icon: "🎖️", text: "10+ Años", sub: "Formando Campeones" },
+            { icon: "🇵🇷", text: "Orgullo Boricua", sub: "Isabela · Hatillo" },
           ].map((item, i) => (
             <motion.div
               key={item.text}
@@ -66,74 +98,136 @@ export default function GallerySection() {
           ))}
         </motion.div>
 
-        {/* Photo grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
-          {photos.map((photo, i) => (
-            <motion.div
+        {/* Carousel */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="relative rounded-2xl overflow-hidden"
+          style={{ aspectRatio: "16/9" }}
+          onMouseEnter={() => setPaused(true)}
+          onMouseLeave={() => setPaused(false)}
+        >
+          <AnimatePresence custom={direction} initial={false}>
+            <motion.img
+              key={current}
+              src={photos[current]}
+              alt={`Sky Dance foto ${current + 1}`}
+              custom={direction}
+              variants={variants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{ duration: 0.5, ease: "easeInOut" }}
+              className="absolute inset-0 w-full h-full object-cover cursor-pointer"
+              onClick={() => setLightbox(current)}
+            />
+          </AnimatePresence>
+
+          {/* Gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
+
+          {/* Prev / Next */}
+          <button
+            onClick={prev}
+            className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/40 border border-white/20 text-white text-xl flex items-center justify-center hover:bg-black/60 transition-colors z-10"
+          >
+            ‹
+          </button>
+          <button
+            onClick={next}
+            className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/40 border border-white/20 text-white text-xl flex items-center justify-center hover:bg-black/60 transition-colors z-10"
+          >
+            ›
+          </button>
+
+          {/* Counter */}
+          <div className="absolute bottom-4 right-4 text-white/60 text-xs font-mono z-10">
+            {current + 1} / {photos.length}
+          </div>
+        </motion.div>
+
+        {/* Dot indicators */}
+        <div className="flex justify-center gap-2 mt-4">
+          {photos.map((_, i) => (
+            <button
               key={i}
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.08 }}
-              onClick={() => setSelected(i)}
-              className={`relative rounded-2xl overflow-hidden cursor-pointer group ${i === 0 ? "col-span-2 sm:col-span-2 row-span-1" : ""}`}
-              style={{ aspectRatio: i === 0 ? "16/7" : "4/3" }}
+              onClick={() => go(i, i > current ? 1 : -1)}
+              className="w-2 h-2 rounded-full transition-all duration-300"
+              style={{
+                background: i === current ? "#FFD700" : "rgba(255,255,255,0.25)",
+                transform: i === current ? "scale(1.3)" : "scale(1)",
+              }}
+            />
+          ))}
+        </div>
+
+        {/* Thumbnail strip */}
+        <div className="flex gap-2 mt-4 overflow-x-auto pb-2 justify-center">
+          {photos.map((src, i) => (
+            <button
+              key={i}
+              onClick={() => go(i, i > current ? 1 : -1)}
+              className="flex-shrink-0 rounded-lg overflow-hidden transition-all duration-300"
+              style={{
+                width: 64,
+                height: 48,
+                outline: i === current ? "2px solid #FFD700" : "2px solid transparent",
+                opacity: i === current ? 1 : 0.5,
+              }}
             >
-              <img
-                src={photo.src}
-                alt={photo.alt}
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-              />
-              {/* Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 translate-y-2 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                <p className="text-white text-xs sm:text-sm font-semibold">{photo.caption}</p>
-              </div>
-              {/* Glow border on hover */}
-              <div className="absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-yellow-400/50 transition-all duration-300" style={{ boxShadow: "0 0 0 0 transparent" }} />
-            </motion.div>
+              <img src={src} alt="" className="w-full h-full object-cover" />
+            </button>
           ))}
         </div>
       </div>
 
       {/* Lightbox */}
-      {selected !== null && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          onClick={() => setSelected(null)}
-          className="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm flex items-center justify-center p-4"
-        >
+      <AnimatePresence>
+        {lightbox !== null && (
           <motion.div
-            initial={{ scale: 0.9 }}
-            animate={{ scale: 1 }}
-            onClick={(e) => e.stopPropagation()}
-            className="relative max-w-4xl w-full"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setLightbox(null)}
+            className="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm flex items-center justify-center p-4"
           >
-            <img
-              src={photos[selected].src}
-              alt={photos[selected].alt}
-              className="w-full rounded-2xl"
-            />
-            <p className="text-center text-white/70 text-sm mt-3">{photos[selected].caption}</p>
-            <button
-              onClick={() => setSelected(null)}
-              className="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-white/10 border border-white/20 text-white flex items-center justify-center hover:bg-white/20 transition-colors text-xs"
+            <motion.div
+              initial={{ scale: 0.9 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0.9 }}
+              onClick={(e) => e.stopPropagation()}
+              className="relative max-w-4xl w-full"
             >
-              ✕
-            </button>
-            <div className="flex justify-center gap-3 mt-4">
-              <button onClick={() => setSelected(Math.max(0, selected - 1))}
-                className="px-4 py-2 rounded-full glass border border-white/10 text-white/60 text-sm hover:text-white transition-colors disabled:opacity-30"
-                disabled={selected === 0}>← Anterior</button>
-              <button onClick={() => setSelected(Math.min(photos.length - 1, selected + 1))}
-                className="px-4 py-2 rounded-full glass border border-white/10 text-white/60 text-sm hover:text-white transition-colors disabled:opacity-30"
-                disabled={selected === photos.length - 1}>Siguiente →</button>
-            </div>
+              <img
+                src={photos[lightbox]}
+                alt={`Sky Dance foto ${lightbox + 1}`}
+                className="w-full rounded-2xl"
+              />
+              <button
+                onClick={() => setLightbox(null)}
+                className="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-white/10 border border-white/20 text-white flex items-center justify-center hover:bg-white/20 transition-colors text-xs"
+              >
+                ✕
+              </button>
+              <div className="flex justify-center gap-3 mt-4">
+                <button
+                  onClick={() => setLightbox((lightbox - 1 + photos.length) % photos.length)}
+                  className="px-4 py-2 rounded-full glass border border-white/10 text-white/60 text-sm hover:text-white transition-colors"
+                >
+                  ← Anterior
+                </button>
+                <button
+                  onClick={() => setLightbox((lightbox + 1) % photos.length)}
+                  className="px-4 py-2 rounded-full glass border border-white/10 text-white/60 text-sm hover:text-white transition-colors"
+                >
+                  Siguiente →
+                </button>
+              </div>
+            </motion.div>
           </motion.div>
-        </motion.div>
-      )}
+        )}
+      </AnimatePresence>
     </section>
   );
 }
