@@ -1,17 +1,19 @@
 "use client";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
-
-const links = [
-  { label: "Clases", href: "#clases" },
-  { label: "Nosotros", href: "#nosotros" },
-  { label: "Horarios", href: "#horarios" },
-  { label: "Contacto", href: "#contacto" },
-];
+import { useLang } from "@/lib/lang";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const { lang, toggle, tx } = useLang();
+
+  const links = [
+    { label: tx.nav.classes,  href: "#clases"   },
+    { label: tx.nav.about,    href: "#nosotros"  },
+    { label: tx.nav.schedule, href: "#horarios"  },
+    { label: tx.nav.contact,  href: "#contacto"  },
+  ];
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
@@ -47,11 +49,24 @@ export default function Navbar() {
             ))}
           </div>
 
-          <a href="#contacto"
-            className="hidden md:block relative px-4 lg:px-6 py-2 lg:py-2.5 rounded-full text-sm font-bold text-white border border-purple-500/60 glow-purple hover:border-purple-400 transition-all duration-300 group overflow-hidden">
-            <span className="relative z-10">Matricúlate</span>
-            <div className="absolute inset-0 bg-gradient-to-r from-purple-600/20 to-pink-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-          </a>
+          <div className="hidden md:flex items-center gap-3">
+            {/* Language toggle */}
+            <button
+              onClick={toggle}
+              className="relative flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-black border border-white/20 glass hover:border-purple-400/60 transition-all duration-300"
+              aria-label="Cambiar idioma"
+            >
+              <span className={lang === "es" ? "text-white" : "text-white/30"}>ES</span>
+              <span className="text-white/20">|</span>
+              <span className={lang === "en" ? "text-white" : "text-white/30"}>EN</span>
+            </button>
+
+            <a href="#contacto"
+              className="relative px-4 lg:px-6 py-2 lg:py-2.5 rounded-full text-sm font-bold text-white border border-purple-500/60 glow-purple hover:border-purple-400 transition-all duration-300 group overflow-hidden">
+              <span className="relative z-10">{tx.nav.enroll}</span>
+              <div className="absolute inset-0 bg-gradient-to-r from-purple-600/20 to-pink-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            </a>
+          </div>
 
           <button onClick={() => setMenuOpen(!menuOpen)}
             className="md:hidden flex flex-col gap-1.5 p-3 -mr-1" aria-label="Menú">
@@ -80,10 +95,20 @@ export default function Navbar() {
                 {link.label}
               </a>
             ))}
-            <a href="#contacto" onClick={() => setMenuOpen(false)}
-              className="mt-1 text-center px-6 py-3 rounded-full font-bold text-white border border-purple-500/60 glow-purple">
-              Matricúlate
-            </a>
+            <div className="flex items-center gap-3 mt-1">
+              <button
+                onClick={toggle}
+                className="flex items-center gap-1 px-3 py-2 rounded-full text-xs font-black border border-white/20 glass"
+              >
+                <span className={lang === "es" ? "text-white" : "text-white/30"}>ES</span>
+                <span className="text-white/20">|</span>
+                <span className={lang === "en" ? "text-white" : "text-white/30"}>EN</span>
+              </button>
+              <a href="#contacto" onClick={() => setMenuOpen(false)}
+                className="flex-1 text-center px-6 py-3 rounded-full font-bold text-white border border-purple-500/60 glow-purple">
+                {tx.nav.enroll}
+              </a>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

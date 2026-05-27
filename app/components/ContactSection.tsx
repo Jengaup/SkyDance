@@ -1,13 +1,14 @@
 "use client";
 import { motion } from "motion/react";
 import { useState } from "react";
+import { useLang } from "@/lib/lang";
 
 const contactInfo = [
-  { icon: "📍", label: "Isabela",         value: "Isabela, Puerto Rico",                         color: "#a855f7", link: "https://maps.app.goo.gl/ko9AU7mF2EEk7QmT8" },
-  { icon: "📍", label: "Hatillo",         value: "Hatillo, Puerto Rico",                         color: "#ec4899", link: "https://maps.app.goo.gl/jghgZB3SAyyF41QE8" },
-  { icon: "✉️",  label: "Email",           value: "skydancestudio76@gmail.com",                   color: "#22d3ee", link: "mailto:skydancestudio76@gmail.com" },
-  { icon: "👍", label: "Facebook",        value: "Sky Dance Studio PR",                          color: "#a3e635", link: "https://www.facebook.com/skydancestudiopr" },
-  { icon: "🕐", label: "Horario oficina", value: "Lun–Sáb: 9:00 AM – 9:00 PM",                 color: "#f97316", link: null },
+  { icon: "📍", label: { es: "Isabela", en: "Isabela" },         value: "Isabela, Puerto Rico",          color: "#a855f7", link: "https://maps.app.goo.gl/ko9AU7mF2EEk7QmT8" },
+  { icon: "📍", label: { es: "Hatillo", en: "Hatillo" },         value: "Hatillo, Puerto Rico",           color: "#ec4899", link: "https://maps.app.goo.gl/jghgZB3SAyyF41QE8" },
+  { icon: "✉️",  label: { es: "Email",   en: "Email" },           value: "skydancestudio76@gmail.com",    color: "#22d3ee", link: "mailto:skydancestudio76@gmail.com" },
+  { icon: "👍", label: { es: "Facebook", en: "Facebook" },       value: "Sky Dance Studio PR",           color: "#a3e635", link: "https://www.facebook.com/skydancestudiopr" },
+  { icon: "🕐", label: { es: "Horario oficina", en: "Office hours" }, value: "Lun–Sáb: 9:00 AM – 9:00 PM", color: "#f97316", link: null },
 ];
 
 const inputClass =
@@ -15,6 +16,8 @@ const inputClass =
 
 export default function ContactSection() {
   const [sent, setSent] = useState(false);
+  const { lang, tx } = useLang();
+  const c = tx.contact;
 
   return (
     <section id="contacto" className="py-20 sm:py-28 px-4 sm:px-6 relative overflow-hidden">
@@ -25,14 +28,12 @@ export default function ContactSection() {
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }} transition={{ duration: 0.6 }} className="text-center mb-12 sm:mb-20">
           <p className="text-purple-400 text-[10px] sm:text-xs font-bold tracking-[0.3em] sm:tracking-[0.4em] uppercase mb-3 sm:mb-4">
-            ◈ Contáctanos ◈
+            {c.tag}
           </p>
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white mb-3 sm:mb-4">
-            ¿Listo para <span className="gradient-text-animated">empezar?</span>
+            {c.title1} <span className="gradient-text-animated">{c.title2}</span>
           </h2>
-          <p className="text-white/40 max-w-xl mx-auto text-sm sm:text-base">
-            Da el primer paso. Tu primera clase es gratis — sin compromisos.
-          </p>
+          <p className="text-white/40 max-w-xl mx-auto text-sm sm:text-base">{c.sub}</p>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 sm:gap-8 lg:gap-10">
@@ -48,18 +49,18 @@ export default function ContactSection() {
                     {item.icon}
                   </div>
                   <div className="min-w-0">
-                    <div className="text-white/30 text-[10px] sm:text-xs uppercase tracking-widest mb-0.5 sm:mb-1">{item.label}</div>
+                    <div className="text-white/30 text-[10px] sm:text-xs uppercase tracking-widest mb-0.5 sm:mb-1">{item.label[lang]}</div>
                     <div className="text-white font-semibold text-xs sm:text-sm break-words">{item.value}</div>
                   </div>
                 </>
               );
               return item.link ? (
-                <a key={item.label} href={item.link} target="_blank" rel="noopener noreferrer"
+                <a key={item.label.es} href={item.link} target="_blank" rel="noopener noreferrer"
                   className="glass rounded-xl p-4 sm:p-5 border border-white/5 flex items-start gap-3 sm:gap-4 hover:border-white/20 transition-colors">
                   {inner}
                 </a>
               ) : (
-                <div key={item.label}
+                <div key={item.label.es}
                   className="glass rounded-xl p-4 sm:p-5 border border-white/5 flex items-start gap-3 sm:gap-4">
                   {inner}
                 </div>
@@ -67,7 +68,7 @@ export default function ContactSection() {
             })}
 
             <div className="glass rounded-xl p-4 sm:p-5 border border-white/5">
-              <p className="text-white/30 text-[10px] sm:text-xs uppercase tracking-widest mb-3 sm:mb-4">Redes Sociales</p>
+              <p className="text-white/30 text-[10px] sm:text-xs uppercase tracking-widest mb-3 sm:mb-4">{c.social}</p>
               <div className="flex gap-2 sm:gap-3">
                 {[
                   { label: "Facebook",  color: "#1877f2", symbol: "FB", href: "https://www.facebook.com/skydancestudiopr" },
@@ -93,38 +94,36 @@ export default function ContactSection() {
                   transition={{ type: "spring", bounce: 0.5 }} className="text-5xl sm:text-7xl mb-4 sm:mb-6">
                   🎉
                 </motion.div>
-                <h3 className="text-2xl sm:text-3xl font-black text-white mb-2 sm:mb-3">¡Mensaje enviado!</h3>
-                <p className="text-white/40 text-sm sm:text-base">Te contactaremos muy pronto. ¡Prepárate para bailar!</p>
+                <h3 className="text-2xl sm:text-3xl font-black text-white mb-2 sm:mb-3">{c.sent.title}</h3>
+                <p className="text-white/40 text-sm sm:text-base">{c.sent.sub}</p>
               </div>
             ) : (
               <form onSubmit={(e) => { e.preventDefault(); setSent(true); }}
                 className="glass rounded-2xl border border-purple-500/20 p-5 sm:p-7 md:p-8 flex flex-col gap-3 sm:gap-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-                  <input type="text"  placeholder="Tu nombre" required className={inputClass} />
-                  <input type="email" placeholder="Tu email"  required className={inputClass} />
+                  <input type="text"  placeholder={c.fields.name}  required className={inputClass} />
+                  <input type="email" placeholder={c.fields.email} required className={inputClass} />
                 </div>
-                <input type="tel" placeholder="Teléfono (opcional)" className={inputClass} />
+                <input type="tel" placeholder={c.fields.phone} className={inputClass} />
                 <select required defaultValue="" className={inputClass}>
-                  <option value="" disabled>¿Qué clase te interesa?</option>
-                  {["Salsa","Hip Hop","Ballet","Tap","Bachata","Music Teatro","Puntas"].map((c) => (
-                    <option key={c} value={c} className="bg-[#050508]">{c}</option>
+                  <option value="" disabled>{c.fields.classSelect}</option>
+                  {["Salsa","Hip Hop","Ballet","Tap","Bachata","Music Teatro","Puntas"].map((cl) => (
+                    <option key={cl} value={cl} className="bg-[#050508]">{cl}</option>
                   ))}
                 </select>
                 <select defaultValue="" className={inputClass}>
-                  <option value="" disabled>Localidad</option>
-                  <option value="isabela"  className="bg-[#050508]">Isabela</option>
-                  <option value="hatillo"  className="bg-[#050508]">Hatillo</option>
+                  <option value="" disabled>{c.fields.location}</option>
+                  {c.locations.map((loc) => (
+                    <option key={loc} value={loc.toLowerCase()} className="bg-[#050508]">{loc}</option>
+                  ))}
                 </select>
-                <textarea placeholder="Cuéntanos algo sobre ti (opcional)" rows={3}
-                  className={`${inputClass} resize-none`} />
+                <textarea placeholder={c.fields.message} rows={3} className={`${inputClass} resize-none`} />
                 <motion.button type="submit" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
                   className="relative w-full py-3.5 sm:py-4 rounded-xl font-black text-white overflow-hidden group">
                   <div className="absolute inset-0 bg-gradient-to-r from-purple-600 via-pink-600 to-cyan-600 group-hover:opacity-90 transition-opacity" />
-                  <span className="relative z-10 text-sm sm:text-base">Enviar mensaje ✦</span>
+                  <span className="relative z-10 text-sm sm:text-base">{c.fields.submit}</span>
                 </motion.button>
-                <p className="text-center text-white/20 text-xs">
-                  Tu primera clase es completamente gratis 🎵
-                </p>
+                <p className="text-center text-white/20 text-xs">{c.fields.free}</p>
               </form>
             )}
           </motion.div>

@@ -1,6 +1,7 @@
 "use client";
 import { motion, AnimatePresence } from "motion/react";
 import { useState, useEffect, useCallback } from "react";
+import { useLang } from "@/lib/lang";
 
 const photos = [
   "/fotos/670937440_18416445175134719_1064323023893670023_n.jpg",
@@ -21,6 +22,8 @@ export default function GallerySection() {
   const [direction, setDirection] = useState(1);
   const [lightbox, setLightbox] = useState<number | null>(null);
   const [paused, setPaused] = useState(false);
+  const { tx } = useLang();
+  const g = tx.gallery;
 
   const go = useCallback((next: number, dir: number) => {
     setDirection(dir);
@@ -58,14 +61,14 @@ export default function GallerySection() {
           className="text-center mb-12 sm:mb-16"
         >
           <p className="text-[10px] sm:text-xs font-bold tracking-[0.3em] uppercase mb-3" style={{ color: "#FFD700" }}>
-            ◈ Logros y Competencias ◈
+            {g.tag}
           </p>
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white mb-3">
-            Campeones en{" "}
-            <span className="gradient-text-animated">el escenario</span>
+            {g.title1}{" "}
+            <span className="gradient-text-animated">{g.title2}</span>
           </h2>
           <p className="text-white/40 max-w-xl mx-auto text-sm sm:text-base">
-            Nuestros estudiantes compiten y ganan a nivel nacional. Orgullo puertorriqueño en cada presentación.
+            {g.sub}
           </p>
         </motion.div>
 
@@ -76,12 +79,7 @@ export default function GallerySection() {
           viewport={{ once: true }}
           className="flex flex-wrap justify-center gap-4 sm:gap-6 mb-10 sm:mb-14"
         >
-          {[
-            { icon: "🏆", text: "Grand Champions", sub: "All Dance PR 2026" },
-            { icon: "🥇", text: "Múltiples Oros", sub: "Competencias Nacionales" },
-            { icon: "🎖️", text: "10+ Años", sub: "Formando Campeones" },
-            { icon: "🇵🇷", text: "Orgullo Boricua", sub: "Isabela · Hatillo" },
-          ].map((item, i) => (
+          {g.trophies.map((item, i) => (
             <motion.div
               key={item.text}
               initial={{ opacity: 0, scale: 0.9 }}
