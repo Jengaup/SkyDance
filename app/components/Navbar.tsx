@@ -50,17 +50,6 @@ export default function Navbar() {
           </div>
 
           <div className="hidden md:flex items-center gap-3">
-            {/* Language toggle */}
-            <button
-              onClick={toggle}
-              className="relative flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-black border border-white/20 glass hover:border-purple-400/60 transition-all duration-300"
-              aria-label="Cambiar idioma"
-            >
-              <span className={lang === "es" ? "text-white" : "text-white/30"}>ES</span>
-              <span className="text-white/20">|</span>
-              <span className={lang === "en" ? "text-white" : "text-white/30"}>EN</span>
-            </button>
-
             <a href="#contacto"
               className="relative px-4 lg:px-6 py-2 lg:py-2.5 rounded-full text-sm font-bold text-white border border-purple-500/60 glow-purple hover:border-purple-400 transition-all duration-300 group overflow-hidden">
               <span className="relative z-10">{tx.nav.enroll}</span>
@@ -68,15 +57,29 @@ export default function Navbar() {
             </a>
           </div>
 
-          <button onClick={() => setMenuOpen(!menuOpen)}
-            className="md:hidden flex flex-col gap-1.5 p-3 -mr-1" aria-label="Menú">
-            <motion.span animate={menuOpen ? { rotate: 45, y: 8 } : { rotate: 0, y: 0 }}
-              className="w-6 h-0.5 bg-purple-400 block origin-center transition-all" />
-            <motion.span animate={menuOpen ? { opacity: 0 } : { opacity: 1 }}
-              className="w-6 h-0.5 bg-purple-400 block" />
-            <motion.span animate={menuOpen ? { rotate: -45, y: -8 } : { rotate: 0, y: 0 }}
-              className="w-6 h-0.5 bg-purple-400 block origin-center transition-all" />
-          </button>
+          <div className="flex items-center gap-2">
+            {/* Language toggle — always visible */}
+            <button
+              onClick={toggle}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-black border border-purple-500/50 bg-purple-600/20 hover:bg-purple-600/40 hover:border-purple-400 transition-all duration-300 text-white"
+              aria-label="Cambiar idioma"
+            >
+              🌐
+              <span className={lang === "es" ? "text-white" : "text-white/40"}>ES</span>
+              <span className="text-white/30">/</span>
+              <span className={lang === "en" ? "text-white" : "text-white/40"}>EN</span>
+            </button>
+
+            <button onClick={() => setMenuOpen(!menuOpen)}
+              className="md:hidden flex flex-col gap-1.5 p-2" aria-label="Menú">
+              <motion.span animate={menuOpen ? { rotate: 45, y: 8 } : { rotate: 0, y: 0 }}
+                className="w-6 h-0.5 bg-purple-400 block origin-center transition-all" />
+              <motion.span animate={menuOpen ? { opacity: 0 } : { opacity: 1 }}
+                className="w-6 h-0.5 bg-purple-400 block" />
+              <motion.span animate={menuOpen ? { rotate: -45, y: -8 } : { rotate: 0, y: 0 }}
+                className="w-6 h-0.5 bg-purple-400 block origin-center transition-all" />
+            </button>
+          </div>
         </div>
       </motion.nav>
 
