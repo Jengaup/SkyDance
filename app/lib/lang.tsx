@@ -6,7 +6,7 @@ export type Lang = "es" | "en";
 export const t = {
   es: {
     nav: {
-      classes: "Clases", about: "Nosotros", schedule: "Horarios", contact: "Contacto", enroll: "Matricúlate",
+      classes: "Clases", about: "Nosotros", schedule: "Horarios", pricing: "Precios", contact: "Contacto", enroll: "Matricúlate",
     },
     hero: {
       badge: "Academia de Baile",
@@ -83,7 +83,7 @@ export const t = {
   },
   en: {
     nav: {
-      classes: "Classes", about: "About", schedule: "Schedule", contact: "Contact", enroll: "Enroll",
+      classes: "Classes", about: "About", schedule: "Schedule", pricing: "Pricing", contact: "Contact", enroll: "Enroll",
     },
     hero: {
       badge: "Dance Academy",

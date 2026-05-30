@@ -12,6 +12,7 @@ export default function Navbar() {
     { label: tx.nav.classes,  href: "#clases"   },
     { label: tx.nav.about,    href: "#nosotros"  },
     { label: tx.nav.schedule, href: "#horarios"  },
+    { label: tx.nav.pricing,  href: "#precios"   },
     { label: tx.nav.contact,  href: "#contacto"  },
   ];
 
