@@ -46,9 +46,10 @@ export const t = {
     schedule: {
       tag: "◈ Horarios ◈",
       title1: "Tu semana en", title2: "movimiento",
-      sub: "Horarios flexibles de lunes a sábado para que nunca pierdas una clase.",
+      sub: "Selecciona tu localidad para ver los horarios disponibles.",
       days: ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"],
       note: "✦ Los horarios pueden variar en días festivos ✦",
+      isabela: "Isabela", hatillo: "Hatillo",
     },
     gallery: {
       tag: "◈ Logros y Competencias ◈",
@@ -122,9 +123,10 @@ export const t = {
     schedule: {
       tag: "◈ Schedule ◈",
       title1: "Your week in", title2: "motion",
-      sub: "Flexible schedule Monday through Saturday so you never miss a class.",
+      sub: "Select your location to see available class times.",
       days: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
       note: "✦ Schedules may vary on holidays ✦",
+      isabela: "Isabela", hatillo: "Hatillo",
     },
     gallery: {
       tag: "◈ Achievements & Competitions ◈",
