@@ -5,7 +5,6 @@ import AboutSection from "@/components/AboutSection";
 import GallerySection from "@/components/GallerySection";
 import ScheduleSection from "@/components/ScheduleSection";
 import ContactSection from "@/components/ContactSection";
-import PricingSection from "@/components/PricingSection";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import MarqueeStrip from "@/components/MarqueeStrip";
@@ -20,8 +19,7 @@ export default function Home() {
       <AboutSection />
       <GallerySection />
       <ScheduleSection />
-      <PricingSection />
-      <ContactSection />
+<ContactSection />
       <Footer />
     </main>
   );
