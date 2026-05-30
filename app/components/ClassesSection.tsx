@@ -29,7 +29,7 @@ export default function ClassesSection() {
           <p className="text-purple-400 text-[10px] sm:text-xs font-bold tracking-[0.3em] sm:tracking-[0.4em] uppercase mb-3 sm:mb-4">
             {c.tag}
           </p>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white mb-3 sm:mb-4">
+          <h2 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white mb-3 sm:mb-4">
             {c.title1} <span className="gradient-text-animated">{c.title2}</span>
           </h2>
           <p className="text-white/40 max-w-xl mx-auto text-sm sm:text-base">{c.sub}</p>

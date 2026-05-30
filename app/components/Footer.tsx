@@ -60,7 +60,7 @@ export default function Footer() {
           <div className="absolute inset-0 bg-gradient-to-r from-purple-900/60 via-pink-900/60 to-cyan-900/60" />
           <div className="absolute inset-0 border border-purple-500/20 rounded-2xl glow-purple" />
           <div className="relative z-10">
-            <h3 className="text-2xl sm:text-3xl md:text-4xl font-black text-white mb-3 sm:mb-4">
+            <h3 className="font-display text-4xl sm:text-5xl md:text-6xl text-white mb-3 sm:mb-4">
               {f.ctaTitle1}{" "}
               <span className="gradient-text-animated">{f.ctaTitle2}</span>
             </h3>

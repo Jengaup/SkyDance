@@ -63,7 +63,7 @@ export default function GallerySection() {
           <p className="text-[10px] sm:text-xs font-bold tracking-[0.3em] uppercase mb-3" style={{ color: "#FFD700" }}>
             {g.tag}
           </p>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white mb-3">
+          <h2 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white mb-3">
             {g.title1}{" "}
             <span className="gradient-text-animated">{g.title2}</span>
           </h2>

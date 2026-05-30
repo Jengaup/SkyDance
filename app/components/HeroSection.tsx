@@ -43,7 +43,7 @@ export default function HeroSection() {
         </motion.div>
 
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2 }}>
-          <h1 className="text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-black leading-none tracking-tight mb-2">
+          <h1 className="font-display text-[5.5rem] sm:text-[7rem] md:text-[10rem] lg:text-[13rem] leading-none mb-2">
             <span className="block text-white">SKY</span>
             <span className="block gradient-text-animated">DANCE</span>
           </h1>

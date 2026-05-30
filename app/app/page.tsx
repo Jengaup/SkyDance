@@ -7,14 +7,17 @@ import ScheduleSection from "@/components/ScheduleSection";
 import ContactSection from "@/components/ContactSection";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import MarqueeStrip from "@/components/MarqueeStrip";
 
 export default function Home() {
   return (
     <main className="bg-[#050508] min-h-screen">
       <Navbar />
       <HeroSection />
+      <MarqueeStrip variant="purple" />
       <ClassesSection />
       <AboutSection />
+      <MarqueeStrip variant="gold" />
       <GallerySection />
       <ScheduleSection />
       <ContactSection />
