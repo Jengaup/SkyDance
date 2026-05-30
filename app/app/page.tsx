@@ -17,7 +17,6 @@ export default function Home() {
       <MarqueeStrip variant="purple" />
       <ClassesSection />
       <AboutSection />
-      <MarqueeStrip variant="gold" />
       <GallerySection />
       <ScheduleSection />
       <ContactSection />
